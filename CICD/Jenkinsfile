@@ -1,0 +1,17 @@
+pipeline {
+agent any
+stages {
+stage('Checkout') {
+steps { checkout scm }
+}
+stage('Build') {
+steps { sh 'docker build -t myapp:${BUILD_NUMBER} .' }
+}
+stage('Push') {
+steps { sh 'docker push myapp:${BUILD_NUMBER}' }
+}
+stage('Deploy') {
+steps { sh 'kubectl set image deployment/myapp app=myapp:${BUILD_NUMBER}' }
+}
+}
+}

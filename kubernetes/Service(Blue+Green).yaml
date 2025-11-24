@@ -1,0 +1,12 @@
+# Service (switch traffic)
+apiVersion: v1
+kind: Service
+metadata:
+name: myapp
+spec:
+selector:
+app: myapp
+version: blue # change to green to switch
+ports:
+- port: 80
+targetPort: 80

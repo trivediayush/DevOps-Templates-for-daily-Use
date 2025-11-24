@@ -1,0 +1,25 @@
+# Deployment with PVC Attached
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+name: storage-app
+spec:
+replicas: 1
+selector:
+matchLabels:
+app: storage-app
+template:
+metadata:
+labels:
+app: storage-app
+spec:
+containers:
+- name: storage-app
+image: nginx
+volumeMounts:
+- mountPath: /data
+name: app-storage
+volumes:
+- name: app-storage
+persistentVolumeClaim:
+claimName: app-pvc
